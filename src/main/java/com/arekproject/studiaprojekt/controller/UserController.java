@@ -17,8 +17,6 @@ import org.springframework.data.domain.Pageable;
 import java.security.Principal;
 import java.util.Optional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -26,7 +24,7 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private NotesRepository notesRepository;
-
+    @ModelAttribute
     public void addCommnData(Principal p, org.springframework.ui.Model m) {
         String email = p.getName();
         UserDtls user = userRepository.findByEmail(email);
@@ -45,7 +43,7 @@ public class UserController {
         UserDtls user = userRepository.findByEmail(email);
 
 
-        Pageable pageable = (Pageable) PageRequest.of(page, 5, Sort.by("id").descending());
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
         Page<Notes> notes = notesRepository.findByNotesByUser(user.getId(), pageable);
 
         m.addAttribute("pageNo", page);

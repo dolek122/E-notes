@@ -39,7 +39,7 @@ public class SecurityConfig{
                 .and()
                 .formLogin()
                 .loginPage("/signin")
-                .loginProcessingUrl("/userLogin")
+                .loginProcessingUrl("/user/login")
                 .defaultSuccessUrl("/user/addNotes")
                 .permitAll();
 
